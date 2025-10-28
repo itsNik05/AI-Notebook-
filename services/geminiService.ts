@@ -1,9 +1,9 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 
-// Fix: Updated the interface to match the Gemini API response structure where 'web', 'uri', and 'title' can be optional.
+// Fix: Updated the interface to match the Gemini API response structure.
 interface GroundedResponse {
     text: string;
-    groundingMetadata?: { groundingChunks: { web?: { uri?: string, title?: string } }[] }[];
+    groundingMetadata?: { groundingChunks?: { web?: { uri?: string, title?: string } }[] };
 }
 
 export const generateGroundedResponse = async (prompt: string): Promise<GroundedResponse> => {
@@ -17,9 +17,10 @@ export const generateGroundedResponse = async (prompt: string): Promise<Grounded
             },
         });
 
+        // Fix: The groundingMetadata is a single object, not an array.
         return {
             text: response.text,
-            groundingMetadata: response.candidates?.[0]?.groundingMetadata ? [response.candidates[0].groundingMetadata] : undefined
+            groundingMetadata: response.candidates?.[0]?.groundingMetadata
         };
     } catch (error) {
         console.error("Error generating grounded response:", error);

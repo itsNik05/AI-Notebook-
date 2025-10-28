@@ -24,9 +24,9 @@ export const NewNoteView: React.FC<NewNoteViewProps> = ({ onClose, onSave }) => 
       const newContent = `${content}\n\n## AI Research: ${query}\n\n${response.text}`;
       setContent(newContent);
 
-      const webSources = response.groundingMetadata
-        ?.flatMap(meta => meta.groundingChunks)
-        .map(chunk => chunk.web)
+      // Fix: Updated to correctly parse web sources from the groundingMetadata object.
+      const webSources = response.groundingMetadata?.groundingChunks
+        ?.map(chunk => chunk.web)
         .filter(web => web?.uri && web.title);
 
       if(webSources) {
