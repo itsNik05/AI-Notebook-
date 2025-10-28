@@ -1,0 +1,7 @@
+{
+  "name": "AI Notebook for Android",
+  "description": "A notebook application with AI capabilities, allowing users to have real-time conversations using Gemini Live, generate text-to-speech for notes, and leverage Google Search for grounded, up-to-date information.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
